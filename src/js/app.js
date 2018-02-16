@@ -37,12 +37,14 @@ const buildTable = (data) => {
 }
 
 const renderViz = (entry) => {
+  const margin = {top: 10, right: 10, bottom: 20, left: 10};
+
   const {Penicilin, Streptomycin, Neomycin} = entry;
   const antiAmounts = [Penicilin, Streptomycin, Neomycin];
   const min = d3.min(antiAmounts),
         max = d3.max(antiAmounts);
-  const width = 800,
-        height = 40;
+  const width = 800 - margin.left - margin.right,
+        height = 50 - margin.top - margin.bottom; ;
 
   // scales
   const logScale = d3.scaleLog()
@@ -52,15 +54,18 @@ const renderViz = (entry) => {
   const logAxis = d3.axisBottom(logScale).ticks(10, "1.1s");
 
   const svg = d3.select("#attempt1").append("svg")
-    .attr("width", width)
-    .attr("height", height)
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   svg.append("g")
-    .attr("transform", "translate(10,20)")
-    .call(logAxis);
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(logAxis);
 
   svg.append("g")
-    .attr("transform", "translate(10,20)")
+    .attr("transform", `translate(0,${height})`)
   .selectAll("circle")
     .data(antiAmounts)
     .enter()
