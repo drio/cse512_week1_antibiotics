@@ -10,7 +10,7 @@ import {csv} from 'd3-fetch';
 window.d3 = d3;
 
 const badHeader   = [ "Bacteria ", "Gram Staining ", "Neomycin", "Penicilin", "Streptomycin "];
-const tableHeader = [ "Bacteria", "Penicilin", "Streptomycin", "Neomycin", "Gran Staining"];
+const tableHeader = [ "Bacteria", "Penicilin", "Streptomycin", "Neomycin", "Gram Staining"];
 const url         = '/assets/data.csv';
 
 const buildTable = (data) => {
@@ -37,16 +37,20 @@ const buildTable = (data) => {
 }
 
 const renderViz = (entry) => {
-  const margin = {top: 10, right: 10, bottom: 20, left: 10};
-
+  const margin = {top: 10, right: 20, bottom: 40, left: 20};
   const {Penicilin, Streptomycin, Neomycin} = entry;
-  const antiAmounts = [Penicilin, Streptomycin, Neomycin];
-  const min = d3.min(antiAmounts),
-        max = d3.max(antiAmounts);
-  const width = 800 - margin.left - margin.right,
-        height = 50 - margin.top - margin.bottom; ;
 
-  // scales
+  const antiAmounts = [Penicilin, Streptomycin, Neomycin];
+  const min         = d3.min(antiAmounts),
+        max         = d3.max(antiAmounts);
+  const width       = 800 - margin.left - margin.right,
+        height      = 80 - margin.top - margin.bottom; ;
+
+  const stain = {
+    'positive': {color: 'green', symbol: '(+)'},
+    'negative': {color: 'red', symbol: '(-)'},
+  }
+
   const logScale = d3.scaleLog()
     .domain([min, max])
     .range([0, width]);
@@ -72,8 +76,29 @@ const renderViz = (entry) => {
     .append("circle")
       .attr("cx", (d) => logScale(d))
       .attr("cy", (d) => 0)
-      .attr("r", (d) => 4)
+      .attr("r", (d) => 6)
       .style("fill", "indianred");
+
+  svg.append("g")
+    .attr("transform", `translate(30,5)`)
+    .selectAll("text")
+    .data([entry])
+    .enter()
+      .append("text")
+      .text(d => `${d["Bacteria"]} (${antiAmounts})`);
+
+  const g_text = svg.append("g")
+    .attr("transform", `translate(0, 5)`);
+
+  g_text
+    .selectAll("text")
+    .data([entry])
+    .enter()
+      .append("text")
+      .text(d => stain[d['GramStaining']].symbol)
+      .attr('stroke', (d) => stain[d['GramStaining']].color)
+      .attr('fill', (d) => stain[d['GramStaining']].color)
+      .attr('font-size', '20px')
 }
 
 const doWork = (data) => {
