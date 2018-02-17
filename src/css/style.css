@@ -6,6 +6,13 @@ body {
   padding: 10px;
 }
 
+.main-container {
+  margin: auto;
+  width: 720px;
+  position: relative;
+  padding-right: 250px;
+}
+
 #table {
   padding-bottom: 10px;
   padding-top: 10px;

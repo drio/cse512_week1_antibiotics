@@ -37,18 +37,39 @@ const buildTable = (data) => {
 }
 
 const renderViz = (entry) => {
-  const margin = {top: 10, right: 20, bottom: 40, left: 20};
+  const margin = {top: 10, right: 20, bottom: 50, left: 20};
+  const width  = 800 - margin.left - margin.right,
+        height = 120 - margin.top - margin.bottom;
+
   const {Penicilin, Streptomycin, Neomycin} = entry;
 
-  const antiAmounts = [Penicilin, Streptomycin, Neomycin];
-  const min         = d3.min(antiAmounts),
-        max         = d3.max(antiAmounts);
-  const width       = 800 - margin.left - margin.right,
-        height      = 80 - margin.top - margin.bottom; ;
+  const colors = {
+    'Penicilin': d3.schemeCategory10[0],
+    'Streptomycin': d3.schemeCategory10[1],
+    'Neomycin': d3.schemeCategory10[2],
+  };
+
+  const antiColors  = ['coral', 'deeppink', 'gold'],
+        antiAmounts = [Penicilin, Streptomycin, Neomycin],
+        antiNames   = ['Peniniclin', 'Streptomycin', 'Neomycin'],
+        antiTextX   = [0, 200, 440];
+
+  const buildAnti = (name, amount, stain) => {
+    return { name, amount, stain };
+  }
+
+  const anti = _.sortBy([
+    buildAnti('Penicilin', Penicilin, entry['GramStaining']),
+    buildAnti('Streptomycin', Streptomycin, entry['GramStaining']),
+    buildAnti('Neomycin', Neomycin, entry['GramStaining']),
+  ], (a) => a.amount);
+
+  const min = d3.min(antiAmounts),
+        max = d3.max(antiAmounts);
 
   const stain = {
-    'positive': {color: 'green', symbol: '(+)'},
-    'negative': {color: 'red', symbol: '(-)'},
+    'positive': {color: 'black', symbol: '(+)'},
+    'negative': {color: 'black', symbol: '(-)'},
   }
 
   const logScale = d3.scaleLog()
@@ -71,13 +92,13 @@ const renderViz = (entry) => {
   svg.append("g")
     .attr("transform", `translate(0,${height})`)
   .selectAll("circle")
-    .data(antiAmounts)
+    .data(anti)
     .enter()
     .append("circle")
-      .attr("cx", (d) => logScale(d))
+      .attr("cx", (d) => logScale(d.amount))
       .attr("cy", (d) => 0)
       .attr("r", (d) => 6)
-      .style("fill", "indianred");
+      .style("fill", (d) => colors[d.name]);
 
   svg.append("g")
     .attr("transform", `translate(30,5)`)
@@ -85,20 +106,62 @@ const renderViz = (entry) => {
     .data([entry])
     .enter()
       .append("text")
-      .text(d => `${d["Bacteria"]} (${antiAmounts})`);
+      .text(d => `${d["Bacteria"]}`)
+      .attr('font-size', '20px')
 
   const g_text = svg.append("g")
     .attr("transform", `translate(0, 5)`);
 
   g_text
     .selectAll("text")
-    .data([entry])
+    .data(anti)
     .enter()
       .append("text")
-      .text(d => stain[d['GramStaining']].symbol)
-      .attr('stroke', (d) => stain[d['GramStaining']].color)
-      .attr('fill', (d) => stain[d['GramStaining']].color)
-      .attr('font-size', '20px')
+      .text(d => stain[d.stain].symbol)
+      .attr('stroke', (d) => stain[d.stain].color)
+      .attr('fill', (d) => stain[d.stain].color)
+      .attr('font-size', '20px');
+
+  const g_text_labels = svg.append("g")
+    .attr("transform", `translate(30, 20)`);
+
+  g_text_labels
+    .selectAll("circle")
+    .data(anti)
+    .enter()
+      .append("circle")
+      .attr("cx", (d, i) => 90 * i)
+      .attr("cy", (d) => -2)
+      .attr("r", (d) => 6)
+      .style("fill", (d) => colors[d.name])
+      .style("stroke", (d) => colors[d.name]);
+
+  g_text_labels
+    .selectAll("text")
+    .data(anti)
+    .enter()
+      .append("text")
+      .text(d => d.name)
+      .attr('x', (d, i) => (90 * i) + 7)
+      .attr('y', (d) => 2)
+      .attr('stroke', (d) => colors[d.name])
+      .attr('fill', (d) => colors[d.name])
+      .attr('font-size', '12px');
+
+  const g_axis_label = svg.append("g")
+    .attr("transform", `translate(${(width/2)-100},${height+30})`)
+      .append("text")
+      .text("minimum inhibitory concentration (MIC)")
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('stroke', (d) => "black")
+      .attr('fill', (d) => "black")
+      .attr('font-size', '12px');
+
+  // Add some extra space for clarity
+  d3.select("#attempt1").append("svg")
+    .attr("width", width)
+    .attr("height", 25);
 }
 
 const doWork = (data) => {
