@@ -32,7 +32,24 @@
       dataset. A very interesting dataset actually.  Read the assigment details
       <a href="https://courses.cs.washington.edu/courses/cse512/14wi/a1.html">here</a>.
 
-      <h3> Design's description
+      <h3>Design's description</h3>
+      <p> The first thing you notice as you start playing with the data is the wide range of
+      values you can have for the concentrations necessary of each antibiotic to be effective.
+      The table does a decent job in communicating the data, but I think my viz requires less
+      brain power to process the data and extract the necesary information.
+
+      <p> In this case we want to be able to pick one of the antibiotics, ideally the one that requires
+      less concentration so we can save money without compromissing effectiveness. We may not have the
+      most efficient antibiotic and we may have to use the second best one.
+
+      <p> I wanted to use distances for my visual encodings since those are processed faster by the
+      human brain. But binding mapping the data directly will not work here because of the wide range of
+      values in the variables I was refering to above. To solve that, instead of using linear mappings for
+      my scales, I use logarithmic scales so we the separation of the values are more meaningful and in turn
+      help communicating the data more effectively.
+
+      <h4>Improvements</h4>
+
 
       <div id="attempt1">
       </div>
