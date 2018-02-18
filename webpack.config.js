@@ -52,6 +52,7 @@ module.exports = {
           'file-loader',
         ],
       },
+      { test: /\.png$/, use: [ "url-loader?mimetype=image/png" ] },
     ],
   },
   // Enable importing JS files without specifying their's extenstion

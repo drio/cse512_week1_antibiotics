@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { render } from 'react-dom';
 import '../css/style.css';
 import araleImage from '../assets/arale-drio.jpg';
+import cornImage from '../assets/corn-fields.jpg';
 import _ from 'lodash';
 import * as d3 from 'd3';
 import {csv} from 'd3-fetch';
@@ -130,7 +131,7 @@ const renderViz = (entry) => {
     .data(anti)
     .enter()
       .append("circle")
-      .attr("cx", (d, i) => 90 * i)
+      .attr("cx", (d, i) => 110 * i)
       .attr("cy", (d) => -2)
       .attr("r", (d) => 6)
       .style("fill", (d) => colors[d.name])
@@ -142,7 +143,7 @@ const renderViz = (entry) => {
     .enter()
       .append("text")
       .text(d => d.name)
-      .attr('x', (d, i) => (90 * i) + 7)
+      .attr('x', (d, i) => (110 * i) + 7)
       .attr('y', (d) => 2)
       .attr('stroke', (d) => colors[d.name])
       .attr('fill', (d) => colors[d.name])
@@ -165,7 +166,7 @@ const renderViz = (entry) => {
 }
 
 const doWork = (data) => {
-  buildTable(data);
+  //buildTable(data);
   _.each(data, d => {
     console.log(d.Bacteria);
     renderViz(d);

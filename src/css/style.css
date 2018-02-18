@@ -1,14 +1,18 @@
 body {
   background: white;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font: 16px/1.6em  Helvetica, sans-serif;
   margin: 50px;
   padding: 10px;
 }
 
+.header-img {
+  width:700px;
+  height: auto;
+}
+
 .main-container {
   margin: auto;
-  width: 720px;
+  width: 780px;
   position: relative;
   padding-right: 250px;
 }
@@ -20,10 +24,12 @@ body {
 
 #viz-container {
   /*display: block;*/
-  //width: 100%;
-  //border: 0px solid grey;
-  //padding: 10px;
+  width: 100%;
+  border: 0px solid grey;
+  padding: 10px;
   /*flex-wrap: wrap;*/
 }
 
-
+#attempt1 {
+  margin-top: 40px;
+}
