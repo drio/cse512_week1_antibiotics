@@ -5,14 +5,16 @@ body {
   padding: 10px;
 }
 
+/*
 .header-img {
-  width:700px;
+  width:900px;
   height: auto;
 }
+*/
 
 .main-container {
   margin: auto;
-  width: 780px;
+  width: 900px;
   position: relative;
   padding-right: 250px;
 }
@@ -27,9 +29,19 @@ body {
   width: 100%;
   border: 0px solid grey;
   padding: 10px;
-  /*flex-wrap: wrap;*/
 }
 
 #attempt1 {
+  width: 100%;
   margin-top: 40px;
+  display: flex;  
+  flex-wrap: wrap;
+}
+
+.viz-entry {
+  background: white;
+  width: 400px;
+  height: 120px;
+  padding: 10px;
+  padding-bottom: 20px;
 }

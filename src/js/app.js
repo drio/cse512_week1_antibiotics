@@ -39,7 +39,7 @@ const buildTable = (data) => {
 
 const renderViz = (entry) => {
   const margin = {top: 10, right: 20, bottom: 50, left: 20};
-  const width  = 800 - margin.left - margin.right,
+  const width  = 400 - margin.left - margin.right,
         height = 120 - margin.top - margin.bottom;
 
   const {Penicilin, Streptomycin, Neomycin} = entry;
@@ -77,11 +77,12 @@ const renderViz = (entry) => {
     .domain([min, max])
     .range([0, width]);
 
-  const logAxis = d3.axisBottom(logScale).ticks(10, "1.1s");
+  const logAxis = d3.axisBottom(logScale).ticks(5, "1.1s");
 
   const svg = d3.select("#attempt1").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .attr("class", "viz-entry")
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -152,17 +153,13 @@ const renderViz = (entry) => {
   const g_axis_label = svg.append("g")
     .attr("transform", `translate(${(width/2)-100},${height+30})`)
       .append("text")
-      .text("minimum inhibitory concentration (MIC)")
-      .attr('x', 0)
+      .text("MIC")
+      .attr('x', 100)
       .attr('y', 0)
       .attr('stroke', (d) => "black")
       .attr('fill', (d) => "black")
       .attr('font-size', '12px');
 
-  // Add some extra space for clarity
-  d3.select("#attempt1").append("svg")
-    .attr("width", width)
-    .attr("height", 25);
 }
 
 const doWork = (data) => {
