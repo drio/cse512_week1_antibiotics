@@ -12,7 +12,7 @@ window.d3 = d3;
 
 const badHeader   = [ "Bacteria ", "Gram Staining ", "Neomycin", "Penicilin", "Streptomycin "];
 const tableHeader = [ "Bacteria", "Penicilin", "Streptomycin", "Neomycin", "Gram Staining"];
-const url         = '/assets/data.csv';
+const url         = 'assets/data.csv';
 
 const buildTable = (data) => {
   const table = d3.select('#table').append('table');
