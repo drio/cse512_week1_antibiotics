@@ -1,4 +1,5 @@
 #!/bin/bash
 
-ssh apu "rm -rf /usr/local/www/drio.org/public/cse512/week1/*"
-scp -r dist/* apu:/usr/local/www/drio.org/public/cse512/week1/
+DST="/usr/local/www/drio.org/public/v/cse512_week1_antibiotics"
+ssh apu "rm -rf $DST; mkdir -p $DST"
+scp -r dist/* apu:$DST/
