@@ -1,4 +1,5 @@
 #!/bin/bash
 
 npm run build
-cp -r ./src dist/
+echo "DRD> Copying src to dist/ ..."
+cp -r ./src dist/ && echo "DRD> It went well!"
