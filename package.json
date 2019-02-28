@@ -13,28 +13,28 @@
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "^7.1.5",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "css-loader": "^0.28.8",
+    "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "^1.1.6",
+    "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^2.30.1",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.10.1"
+    "webpack": "^3.12.0",
+    "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
     "browser-sync": "^2.26.3",
-    "chance": "^1.0.13",
-    "d3": "^4.12.2",
-    "d3-fetch": "^1.0.1",
+    "chance": "^1.0.18",
+    "d3": "^4.13.0",
+    "d3-fetch": "^1.1.2",
     "d3-iconarray": "0.0.2",
     "lodash": "^4.17.11",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "styled-components": "^2.4.0"
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "styled-components": "^2.4.1"
   }
 }
